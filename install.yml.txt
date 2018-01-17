@@ -1,0 +1,31 @@
+---
+- hosts: webservers
+  remote_user: root
+
+  tasks:
+   - name: test package python ok
+     yum: name=python state=latest
+   - stat:
+       path: /usr/local/ibm/gsk8_64/bin/gsk8capicmd_64
+     register: st
+   - debug:
+      msg: "Le repertoire /usr/local/ibm/gsk8_64/bin/gsk8capicmd_64 n existe pas"
+     when: st.stat.exists == False
+
+   - stat:
+       path: /usr/local/ibm/gsk8_64/bin/gsk8ver_64
+   - debug:
+      msg: "Le repertoire /usr/local/ibm/gsk8_64/bin/gsk8ver_64 n existe pas"
+     when: st.stat.exists == False
+
+   - lvol:
+       vg: vg_apps
+       lv: test
+       size: 5120
+
+   - git:
+       repo: 'https://cip-gitlab-assurance.is.echonet/AP06578/script.manage-sa-light.git'
+       dest: /home/was/testgit
+
+
+...
