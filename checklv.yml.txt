@@ -1,0 +1,23 @@
+---
+- hosts: localhost
+  vars:
+    lv_plg85: "/dev/mapper/vg_apps-lv_plg85"
+    lv_ihs85: "/dev/mapper/vg_apps-lv_ihs85"
+    nom_serveur: "{{ HOSTNAME }}"
+
+  tasks:
+  #- lvol:
+  #   vg: vg_apps
+  #   lv: "{{ item }}"
+  #    size: 2G
+  #    active: true
+  #  with_items:
+  #     - /dev/mapper/vg_apps-lv_plg85
+  #     - /dev/mapper/vg_apps-lv_ihs85
+
+  - file:
+      path: /apps/WebSphere85
+      state: directory
+      owner: was
+      group: web
+...
