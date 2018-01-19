@@ -1,0 +1,21 @@
+functions.py
+def viewAction(typeRess,idRess):
+	if typeRess == "url":
+		print "Nom JNDI dans WebSphere : %s" % getObjectAttribute(idRess,'jndiName')
+		print "Valeur : %s" % getObjectAttribute(idRess,'spec')
+
+	if typeRess == "ds":
+		viewDbRessProperties(idRess)
+
+	if typeRess == "ree":
+		viewReeProperties(idRess)	
+
+
+
+
+
+analyseProps.py
+print (
+                    "[%s] %s: %s" % (t_Ress[nomRess]['URL_TYPE_ACTION'],
+                                     getObjectAttribute(idRess,'jndiName'),
+                                     t_Ress[nomRess]['URL_JNDI_APPLI'])
