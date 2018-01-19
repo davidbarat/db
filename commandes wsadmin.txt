@@ -1,0 +1,10 @@
+sur le noeud pour vérifier que l'ihs est up : /apps/WebSphere85/profiles/node/bin 
+serverStatus.sh sw-cij_deliverymanager-prez-01
+
+arrêt d'un sa depuis le noeud : /apps/WebSphere85/profiles/node/bin 
+wsadmin.sh -lang jython -c 'AdminControl.stopServer('\''sa-cij_deliverymanager-prez-01'\'','\''s00vl9968809'\'')' 
+
+le mode force : wsadmin.sh -llmang jython -c 'AdminControl.stopServer('\''sa-cij_deliverymanager-prez-01'\'','\''s00vl9968809'\'','\''immediate'\'')' 
+
+sur dmgr : check que le sa est up : /apps/WebSphere85/profiles/node/bin 
+wsadmin.sh -lang jython -c 'AdminControl.getAttribute(AdminControl.completeObjectName('\''WebSphere:type=Server,name=sa-cij_deliverymanager-prez-01,*'\''), '\''state'\'')' 
