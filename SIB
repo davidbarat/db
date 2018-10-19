@@ -1,0 +1,103 @@
+Bienvenue sur Etherpad
+
+Le texte de ce pad est synchronisé au fur et à mesure de votre frappe. Toute personne connectée dessus voit la même information. Ce qui permet une rédaction en commun d'un document.
+
+Ce pad sera principalement utilisé pour transmettre et échanger ligne de commande, exemples de script, etc.
+
+La disponibilité et l'intégrité de votre pad ne sont pas garanties dans le temps. Assurez-vous d'exporter son contenu une fois celui-ci mis au point.
+
+http://192.168.90.200/
+
+https://pad.opendoor.fr/p/201810SIB
+
+Biblio
+
+https://infra.opendoor.fr/git/tom/SIB_Exercices
+
+
+https://docs.ansible.com/ansible/latest/modules_intro.html
+
+https://docs.ansible.com/ansible/latest/modules/modules_by_category.html
+
+https://docs.ansible.com/ansible/latest/reference_appendices/playbooks_keywords.html
+
+Groupe1
+Gaël / 0 / 2h45 / vieilles américaines / Adaptation / Connaitre Ansible / 
+Laurent : quelques jours de bricolage. 1h45. Boxe française. Résilience. Objectif fondamental : positionnement, fonctionnement, architecture.
+Didier  0, 1h45,ma corvette, aucun,prise en main d'ansible et création de playbooks me suffisent,
+
+Groupe2
+Gregory  : Modification et creation de playbook.  XP lite .  2 heures. ------ . bonne pratique ansible
+Sofiene: quelques jours. 45 minutes. passe temps: natation sport. Prise de main d'Ansible et les playbooks 
+
+Groupe 3
+Hervé : quelques jours : 45 minutes : lecture , marche : écriture playbooks, tower
+Alex : Lancement commande ansible au quotidien mais pas de partie configuration. _1h30
+Foot 30 ans de pratique, cinéma.
+4-Les playbooks
+
+Groupe 4
+Adrien:
+    -Expérience: 0 (juste lecture de quelques playbooks) / Temps de trajet: 60mn / Prise en main et écriture de playbooks
+    -Patisserie, Marche/rando
+Pascal rien     cette semaine 30 minutes à pied 
+apprendre guitare basse 
+code modulaire
+
+
+Configuration
+
+[defaults]
+forks          = 20
+ask_pass      = True
+gathering = explicit
+host_key_checking = False
+callback_whitelist = timer, profile_tasks
+log_path = /var/log/ansible.log
+retry_files_enabled = False
+[inventory]
+[privilege_escalation]
+become=True
+become_ask_pass=False
+[paramiko_connection]
+[ssh_connection]
+pipelining = True
+[persistent_connection]
+[accelerate]
+[selinux]
+[colors]
+[diff]
+
+Commande adhoc
+Création du compte:
+    
+ansible -u root -k all -m user -a "user=ansible password={{ 'ansible' |password_hash('sha512')}} create_home=yes home=/home/ansible"
+
+
+Configuration sudo
+  
+déployer avec module copy:
+créer un fichier avec le contenu suivant;
+
+ansible ALL=(ALL) NOPASSWD:ALL
+
+ansible all -u root -k -m copy -a "src=sudoers_ansible dest=/etc/sudoers.d/ansible mode=0644 validate='/usr/sbin/visudo -cf %s'"
+
+déployer avec module lineinfile:
+ansible all -u root -k -m lineinfile -a "path=/etc/sudoers.d/ansible line='ansible ALL=(ALL) NOPASSWD: ALL' state=present validate='/usr/sbin/visudo -cf %s' create=yes"
+
+
+Déploiement de la clé publique:
+
+ansible -u root -k all -m authorized_key -a "user=ansible key={{ lookup( 'file', '/root/.ssh/id_rsa.pub') }} "
+
+
+
+Config minimale yaml pour vi:
+    
+    dans ~/.vimrc rajouter:
+    set softtabstop=2 expandtab shiftwidth=2 smarttab autoindent
+
+
+
+
