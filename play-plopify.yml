@@ -1,0 +1,12 @@
+- name: test my new module
+  connection: local
+  hosts: localhost
+  tasks:
+  - name: run the new module
+    plopify:
+      text: 'hello'
+    register: testout
+
+  - name: dump test output
+    debug:
+      msg: '{{ testout }}'
