@@ -1,1 +1,8 @@
+# Artifactory can be used as private Docker registry, as well.
+FROM repo.mycompany.com/debian:stretch
 
+RUN rm /etc/apt/sources.list \
+  && echo 'deb http://repo.mycompany.com/artifactory/deb.debian.org stretch main' >> /etc/apt/sources.list \
+  && echo 'deb http://repo.mycompany.com/artifactory/deb.debian.org stretch-updates main' >> /etc/apt/sources.list \
+  && echo 'deb http://repo.mycompany.com/artifactory/security.debian.org stretch/updates main' >> /etc/apt/sources.list \
+  && apt-get update && apt-get install -y git curl && rm -rf /var/lib/apt/lists/*
